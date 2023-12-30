@@ -1,0 +1,183 @@
+<div class="container text-center">
+  <div class="row">
+    <div class="col" *ngFor="let emp of employees">
+      <div class="card" style="width: 18rem">
+        <img src="..." class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">{{ emp.empno }}</h5>
+          <p class="card-text">{{ emp.id }}</p>
+          <p class="card-text">
+            {{ emp.route }}
+          </p>
+          <p class="card-text">{{ emp.name }}</p>
+          <p class="card-text">{{ emp.phonenumber }}</p>
+          <!-- <button class="btn btn-danger">Delete</button> -->
+          <button class="btn btn-info">Details</button>
+          <button class="btn btn-info" style="margin-left: 10px">Update</button>
+          <button
+            (click)="deleteemployee(emp.id)"
+            class="btn btn-danger"
+            style="margin-left: 10px"
+          >
+            Delete
+          </button>
+
+          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col">
+      Column
+    </div>
+    <div class="col">
+      Column
+    </div> -->
+  </div>
+</div>
+<!-- Form Starts -->
+
+<div class="col-sm-3 m-2">
+  <div class="card">
+    <div class="card-body">
+      <h3>Add Employee</h3>
+      <form #employeeForm="ngForm" (ngSubmit)="onFormSubmit(employeeForm)">
+        <div class="form-group">
+          <label for="name">Employee Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="ID"
+            [(ngModel)]="newEmployee.name"
+            name="ID"
+            minlength="5"
+            required
+            #employeeName="ngModel"
+          />
+
+          <div class="error" *ngIf="employeeName.errors?.['required']">
+            Employee name is required!
+          </div>
+
+          <div class="error" *ngIf="employeeName.errors?.['minlength']">
+            Employee name at least 5 chars
+          </div>
+
+          <div class="error" *ngIf="employeeName.errors?.['maxlength']">
+            Employee Name at most 20 chars
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="EID">EID</label>
+          <input
+            type="text"
+            class="form-control"
+            id="id"
+            [(ngModel)]="newEmployee.id"
+            name="id"
+            required
+            #employeeId="ngModel"
+          />
+
+          <!-- <select class="form-control"  id="EID" -->
+
+          <!-- required [(ngModel)]="newEmployee.EID" name="EID">{{id}} -->
+          <!-- <option *ngFor="let employee of allemployee" [value]="EID.name">{{EID.name}}</option> -->
+          <!-- </select>// -->
+          <div class="error" *ngIf="employeeId.errors?.['required']">
+            Employee ID is required!
+          </div>
+        </div>
+
+        <!-- <div class="form-group">
+          <label for="route">E-ROUTES</label>
+          <select class="form-control"  id="route"
+
+                 required [(ngModel)]="newEmployee.allroute" name="route">
+
+            <option *ngFor="let route of allRoutes" [value]="route.id">{{route.id}},{{route.name}},{{route.location}}</option>
+          </select>
+        </div> -->
+
+        <div class="form-group">
+          <label for="name">EPhonenumber</label>
+          <input
+            type="text"
+            class="form-control"
+            id="pno"
+            [(ngModel)]="newEmployee.phonenumber"
+            name="pno"
+            minlength="7"
+            maxlength="10"
+            required
+            #employeepNo="ngModel"
+          />
+
+          <div class="error" *ngIf="employeepNo.errors?.['required']">
+            Employee Phonenumber is required!
+          </div>
+
+          <div class="error" *ngIf="employeepNo.errors?.['minlength']">
+            Employee Phonenumber at least 7 digits
+          </div>
+
+          <div class="error" *ngIf="employeepNo.errors?.['maxlength']">
+            Employee PhoneNumber at most 10 digits
+          </div>
+        </div>
+
+        <hr />
+
+        <!-- <div class="form-group">
+          <label for="name">Tag</label>
+          <input
+            type="text"
+            class="form-control"
+            required
+            id="specialTag"
+            [(ngModel)]="newEmployee.specialTag"
+            name="specialTag"
+            #specialTag="ngModel"
+            minlength="5"
+            maxlength="20"
+          />
+
+          <div *ngIf="specialTag.errors?.['required']">
+            SpecialTag is required!
+          </div>
+
+          <div style="border: 1px solid #ddd; padding: 10px">
+            <div>Dirty {{ specialTag.dirty }}</div>
+            <div>Pristine {{ specialTag.pristine }}</div>
+            <div>Touched {{ specialTag.touched }}</div>
+            <div>Valid {{ specialTag.valid }}</div>
+            <div>Max Length Error {{specialTag.errors?.['maxlength']}}</div>
+            <div>Min Length Error {{specialTag.errors?.['minlength']}}</div>
+          </div>
+        </div> -->
+
+        <!-- <input
+          type="radio"
+          name="isFeatured"
+          [(ngModel)]="newEmployee.isSpecial"
+          value="true"
+        />
+        Special
+
+        <br /> -->
+        <hr />
+        <button
+          id="mysubmit"
+          type="submit"
+          class="btn btn-success"
+          [disabled]="!employeeForm.valid"
+        >
+          Submit
+        </button>
+
+        <!-- <button type="reset" class="btn btn-default" (click) = onReset(courseForm) >Reset</button> -->
+      </form>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

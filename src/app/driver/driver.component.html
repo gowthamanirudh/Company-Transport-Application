@@ -1,0 +1,122 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <!-- <th scope="col">#</th> -->
+      <th scope="col">D-ID</th>
+      <th scope="col">D-ROUTE</th>
+      <th scope="col">D-NAME</th>
+      <th scope="col">D-PHONENO</th>
+      <th scope="col">OPERATIONS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let d of cdrivers">
+      <!-- <th scope="row">1</th> -->
+      <th scope="row">{{ d.id }}</th>
+      <!-- <td>{{d.id}}</td> -->
+      <td>{{ d.route }}</td>
+      <td>{{ d.name }}</td>
+      <td>{{ d.phonenumber }}</td>
+      <td>
+        <button class="btn btn-info">Details</button>
+        <button class="btn btn-info" style="margin-left: 10px">Update</button>
+        <button
+          (click)="deletedriver(d.id)"
+          class="btn btn-danger"
+          style="margin-left: 10px"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+    <!-- <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>fat</td>
+    </tr> -->
+    <!-- <tr>
+      <th scope="row">3</th>
+      <td colspan="2">Larry the Bird</td>
+      <td>twitter</td>
+    </tr>  -->
+  </tbody>
+</table>
+<!-- form starts -->
+<div class="col-sm-3 m-2">
+  <div class="card">
+    <div class="card-body">
+      <h3>Add Driver</h3>
+      <form [formGroup]="driverForm" (ngSubmit)="onFormSubmit(driverForm)">
+        <div class="form-group">
+          <label for="name">D-ID</label>
+          <input class="form-control" type="text" formControlName="DID" />
+          <div
+            class="error"
+            *ngIf="driverForm.get('DID')?.errors?.['required']"
+          >
+            Driver ID is required!
+          </div>
+        </div>
+
+        <!-- <div class="form-group">
+          <label for="route">D-ROUTES</label>
+          <select class="form-control"  id="route"
+
+                 required [(ngModel)]="newDriver.route" name="route">
+            <option *ngFor="let route of allRoutes" [value]="route.name">{{route.name}}</option>
+          </select>
+        </div> -->
+
+        <div class="form-group">
+          <label for="name">D-NAME</label>
+          <input class="form-control" type="text" formControlName="DNAME" />
+          <div
+            class="error"
+            *ngIf="driverForm.get('DNAME')?.errors?.['required']"
+          >
+            Driver Name is required!
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="name">D-PHONENO</label>
+          <input class="form-control" type="text" formControlName="DPHONENO" />
+
+          <div
+            class="error"
+            *ngIf="driverForm.get('DPHONENO')?.errors?.['required']"
+          >
+            Driver Phonenumber is required!
+          </div>
+          <div
+            class="error"
+            *ngIf="driverForm.get('DPHONENO')?.errors?.['minlength']"
+          >
+            Driver Phonenumber atleast 7 digits
+          </div>
+        </div>
+
+        <br />
+        <button
+          type="submit"
+          class="btn btn-success"
+          [disabled]="!driverForm.valid"
+        >
+          Submit
+        </button>
+        <button
+          type="reset"
+          class="btn btn-success"
+          (click)="onReset(driverForm)"
+        >
+          Reset
+        </button>
+        <button type="button" class="btn btn-success" (click)="updateName()">
+          Set Value
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
